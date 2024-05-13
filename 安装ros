@@ -1,0 +1,34 @@
+##ros ubuntu20.04上的版本
+###########ros参考：http://t.csdn.cn/mrc8L
+###########ros官网：http://wiki.ros.org/cn/ROS/Installation
+###########ros教程：http://wiki.ros.org/noetic/Installation/Ubuntu
+  #添加ROS软件源
+  #打开终端，输入以下指令，添加ROS官方的软件源镜像
+sudo sh -c 'echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros-latest.list'
+
+  #添加密钥
+  #使用如下命令添加密钥：
+sudo apt-key adv --keyserver 'hkp://keyserver.ubuntu.com:80' --recv-key C1CF6E31E6BADE8868B172B4F42ED6FBAB17C654
+
+  #18.04用这个sudo apt install curl
+  curl -s https://raw.githubusercontent.com/ros/rosdistro/master/ros.asc | sudo apt-key add -
+
+  #安装ROS
+  #使用如下命令确保软件索引是最新的：
+sudo apt update
+  #使用如下命令安装桌面完整版：
+sudo apt install ros-noetic-desktop-full
+
+sudo apt install ros-melodic-desktop-full #18.04
+  #设置环境变量
+  #在使用之前还要对环境变量进行配置，在终端输入如下指令：
+#20.04：  echo "source /opt/ros/noetic/setup.bash" >> ~/.bashrc
+#18.04：  echo "source /opt/ros/melodic/setup.bash" >> ~/.bashrc
+
+source ~/.bashrc
+  #到此，安装过程完成，可以在终端输入 roscore 命令查看安装好的ros的发行版名称为noetic和版本号1.15.X
+  
+  #然后打开一个终端，输入命令：rosrun turtlesim turtlesim_node
+  #可以看到小乌龟的仿真界面已经打开了。
+  #再打开一个新终端输入指令：rosrun turtlesim turtle_teleop_key 
+  #可以通过键盘的方向键控制小乌龟在界面中移动
