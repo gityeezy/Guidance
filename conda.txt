@@ -1,0 +1,41 @@
+管理 Conda 环境
+
+    	创建新环境：conda create --name myenv 你可以通过添加 python=3.x 来指定Python版本。
+
+	激活环境：conda activate myenv
+
+	禁用环境：conda deactivate
+
+	列出所有环境：conda env list 或者 conda info --envs
+
+	删除环境：conda remove --name myenv --all
+
+管理包
+
+	安装包：conda install numpy 你可以在命令后面添加 =version 来指定包的版本。
+
+	列出环境中安装的包：conda list
+
+	更新包：conda update numpy
+
+	卸载包：conda remove numpy
+
+搜索包
+
+   	搜索可用的包版本：conda search numpy
+
+环境操作
+
+   	克隆环境：conda create --name myclone --clone myenv
+
+	导出环境：conda env export > environment.yml 用于生成一个环境文件，可以通过该文件重新创建环境。
+
+	从环境文件创建环境：conda env create -f environment.yml
+
+其他有用的指令
+
+   	更新Conda自身：conda update conda
+
+查找帮助：
+	对于任何命令，你可以使用 --help 来查看更详细的用法说明，例如：conda create --help
+
