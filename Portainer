@@ -1,0 +1,23 @@
+1. 打开浏览器，点击标签"Portainer|local"进入docker管理。
+2. 账户名称:admin，密码:hjydocker951202。
+3. 点击右侧主界面"local"，进入本地docker管理。点击右侧主界面"Containers"，进入容器管理。
+4. 选择除"chatgpt-web"和"portainer"以外的容器("prtainer"容器为后台管理程序，"chatgpt-web"为ChatGPT的后台容器)，点击"stop"，等待右上角提示容器关闭成功。
+5. 打开终端新建无ros环境建容器
+sudo docker run --cap-add=SYS_PTRACE --gpus all -e USER=ye -e PASSWORD=1 --shm-size=1024m -v /tmp/.X11-unix:/tmp/.X11-unix:rw -v /home/ye/wd2t/DATA2:/data -p 10022:22 -p 14000:4000 ubuntu-desktop:20.04
+   或者新建有ros环境容器
+sudo docker run --cap-add=SYS_PTRACE --gpus all -e USER=ye -e PASSWORD=1 --shm-size=1024m -v /tmp/.X11-unix:/tmp/.X11-unix:rw -v /home/ye/wd2t/DATA20:/data -p 10022:22 -p 14000:4000 nvidia_ubuntu:18.04_ros
+
+修改容器名//前半部分为乱码名字，后半部分为自己设置的名字
+sudo docker rename loving_boyd cvlife_vio_class
+
+6. 进入nomachine界面，双击进入一串乱码的Ubuntu18系统。用户名:hjy,密码:1。
+7. 进入nomachine后，鼠标移至nomachine界面右上角，会出现翻页动画，点击进入Display，修改nomachine界面分辨率。
+8. 宿主机的标签文件夹"sda1"下的"docker_data"文件夹已映射到容器"/home/hjy/data/"文件夹。
+9. 如需使用vscode编辑代码，点击nomachine桌面的"code.sh"
+10. 如果要运行带显示渲染的程序，比如orb2、orb3的运行指令，以及ros的rviz启动时候，都需在正常指令之前添加"vglrun"，使得渲染画面是通过独显显示。
+
+/////////////////////////////////////////////////////////////////////////////////////
+ssh hjy@172.17.0.3 -p 22
+如果ssh失败
+vim ~/.ssh/known_hosts
+/////////////////////////////////////////////////////////////////////////////////////
