@@ -1,0 +1,64 @@
+
+
+#ubuntu22.04使用noVNC的教程，由于22的特殊性要先设置第一步。其他版本ubuntu未测试未知
+
+
+ #######################配置vnc服务##############################
+	 #点击桌面右上角，点击设置settings
+	 #点击共享sharing
+	 #打开屏幕共享remote desktop
+	 #点击remote desktop为打开，启用enable legacy VNC Protocol选项，并点击后面设置成用密码登陆
+	 #remote control启用
+	 #往下看Authentication里的密码password，每次重启都会变，看下面操作
+	 ####下面画重点####
+	 #终端输入seahorse
+	 #第一个Login选项，右击调出选择Change Password，输出密码后，新密码直接置空！！！
+	  即不设置密钥环，否则VNC每次都会自动变密码
+	 ##################
+	 
+ ###############################################################
+ 
+ 
+ #########################使用noVNC##############################
+
+	#使用git clone下载novnc
+		git clone  https://github.com/novnc/noVNC.git 
+
+	 #这里指的注意的操作就是映射vnc端口的操作，vnc端口需要为你实际vnc的端口。如果你是另外一种方式安装的vnc那么默认端口一般为5901，博主使用的是桌面共享的方式，所以此处我默认端口为5900。默认映射出的端口为6080。
+	 #这里使用桌面共享，用5900：
+	 
+	 	cd noVNC                                     #进入novnc文件夹
+		./utils/novnc_proxy --vnc localhost:5900     #映射vnc端口
+
+	 #需要确认自己的ip地址，不知去查“ifconfig”，以及映射出的端口，默认映射出的端口为6080。
+		http://localhost:6080/vnc.html
+	 #输入密码即可进行连接
+ ###############################################################
+ 
+ 
+ #########################开机自启###############################
+	#编辑配置文件
+		sudo gedit /etc/systemd/system/novnc.service 
+
+	#配置项，打开文件中填写：
+		[Unit]
+		Description=noVNC remote desktop server
+		After=syslog.target network.target
+		 
+		[Service]
+		Type=simple
+		ExecStart=/home/slamopto/noVNC/utils/novnc_proxy --vnc localhost:5900   #noVNC的实际路径，路径要写到底
+		ExecStop=/bin/kill -TERM $MAINPID				#可删
+		ExecReload=/bin/kill -HUP $MAINPID				#可删
+		KillMode=control-group						#可删
+		Restart=on-failure
+		 
+		[Install]
+		WantedBy=multi-user.target
+
+
+	#配置完后，终端输入下面命令
+		systemctl enable novnc
+#################################################################
+
+
